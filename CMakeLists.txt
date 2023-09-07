@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.15)
 project(better-main
 	LANGUAGES
 		CXX
@@ -16,7 +16,7 @@ endif()
 add_library(better-main INTERFACE)
 target_sources(better-main
     INTERFACE
-    ${CMAKE_SOURCE_DIR}/src/better-main.cpp
+    src/better-main.cpp
 )
 
 if(BETTER_MAIN_CONVERT_TO_UTF8)
