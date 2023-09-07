@@ -7,7 +7,7 @@ using args_view_type = const args_storage_type&;
 
 int bmain(args_view_type args);
 
-#ifdef _MSC_VER
+#ifdef WIN32
 
 #if defined(BETTER_MAIN_CONVERT_TO_UTF8) && BETTER_MAIN_CONVERT_TO_UTF8
 #    ifndef WIN32_LEAN_AND_MEAN
