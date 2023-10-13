@@ -16,7 +16,7 @@ int bmain(bmain_args args)
 }
 ```
 # Why
-On Windows the `main()` function uses ANSI for the arguments, using `wmain()` is not great as having to deal with `wchar_t` type is not well supported on other platforms and when creating a cross platform applications having to deal with this is pretty annoying, other platforms typically have UTF-8 encoded strings for the arguments, to reduce the boilerplate code I opted to create this to just have one entry point that has always UTF-8 strings, also instead of the traditional C style `argc, argv` it uses vector or span depending on the cpp language version being used.
+On Windows the `main()` function uses ANSI for the arguments, using `wmain()` is not great as having to deal with `wchar_t` type is not well supported on other platforms and when creating cross platform applications having to deal with this is pretty annoying, other platforms typically have UTF-8 encoded strings for the arguments, to reduce the boilerplate code I opted to create this to just have one entry point that has always UTF-8 strings, also instead of the traditional C style `argc, argv` it uses vector or span depending on the cpp language version being used.
 
 # Usage
 The easiest way to use this is using CMake, simply add `better-main` to your targets linked libraries, if you are not using CMake you can just copy the source files into the project where you wish to use it. After that modify your `main(int argc, const char* argv[])` to `int bmain(bmain_args args)`, that's it. Be aware that this should not be used for static or shared libraries and will likely break your build.
