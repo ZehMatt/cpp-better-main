@@ -4,7 +4,6 @@ project(better-main
 		CXX
 )
 
-option(BETTER_MAIN_CONVERT_TO_UTF8 "Converts the arguments to hold UTF8 encoded bytes, this is only relevant for MSVC builds." ON)
 option(BETTER_MAIN_BUILD_EXAMPLE "Builds the example." OFF)
 
 set(IS_ROOT_PROJECT OFF)
@@ -13,15 +12,20 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 endif()
 
 # better-main
-add_library(better-main INTERFACE)
-target_sources(better-main
-    INTERFACE
-    src/better-main.cpp
+add_library(better-main STATIC)
+add_library(better-main::better-main ALIAS better-main)
+
+target_sources(better-main PRIVATE 
+    src/bmain.cpp
+    include/bmain/bmain.hpp
 )
 
-if(BETTER_MAIN_CONVERT_TO_UTF8)
-    target_compile_definitions(better-main INTERFACE "BETTER_MAIN_CONVERT_TO_UTF8=1")
-endif()
+target_include_directories(better-main
+    PRIVATE
+        include/bmain
+    PUBLIC
+        include
+)
 
 # example
 if(BETTER_MAIN_BUILD_EXAMPLE OR IS_ROOT_PROJECT)
@@ -29,6 +33,6 @@ if(BETTER_MAIN_BUILD_EXAMPLE OR IS_ROOT_PROJECT)
         example/main.cpp
     )
     target_link_libraries(better-main-example
-        better-main
+        better-main::better-main
     )
 endif()
